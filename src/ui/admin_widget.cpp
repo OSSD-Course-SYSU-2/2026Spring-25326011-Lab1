@@ -441,10 +441,12 @@ void AdminWidget::onExportData() {
     m_questionBank.save();
     m_poemBank.save();
 
-    // 从应用程序目录复制数据文件到导出位置
+    // 从项目根目录的resources复制数据文件
     QString appPath = QCoreApplication::applicationDirPath();
-    QString questionsFile = appPath + "/resources/questions.json";
-    QString poemsFile = appPath + "/resources/poems.json";
+    QDir dir(appPath);
+    dir.cdUp();  // 从bin回到项目根目录
+    QString questionsFile = dir.absolutePath() + "/resources/questions.json";
+    QString poemsFile = dir.absolutePath() + "/resources/poems.json";
 
     // 移除目标文件（如果存在）
     QString destQuestions = path + ".questions.json";
@@ -489,10 +491,12 @@ void AdminWidget::onImportData() {
         return;
     }
 
-    // 复制文件到应用程序目录
+    // 复制文件到项目根目录的resources
     QString appPath = QCoreApplication::applicationDirPath();
-    QString destQuestions = appPath + "/resources/questions.json";
-    QString destPoems = appPath + "/resources/poems.json";
+    QDir dir(appPath);
+    dir.cdUp();  // 从bin回到项目根目录
+    QString destQuestions = dir.absolutePath() + "/resources/questions.json";
+    QString destPoems = dir.absolutePath() + "/resources/poems.json";
 
     QFile::remove(destQuestions);
     QFile::remove(destPoems);

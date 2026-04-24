@@ -6,11 +6,14 @@
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
 {
-    // 初始化数据存储 - 使用应用程序所在目录
+    // 初始化数据存储 - 使用项目根目录的resources
     QString appPath = QCoreApplication::applicationDirPath();
-    QString dataPath = appPath + "/resources";
+    // 从bin目录向上找到项目根目录
+    QDir dir(appPath);
+    dir.cdUp();  // 从bin回到项目根目录
+    QString dataPath = dir.absolutePath() + "/resources";
     QDir().mkpath(dataPath);  // 确保资源目录存在
-    
+
     m_storage = new FileStorage(dataPath);
     m_questionBank = new QuestionBank(*m_storage);
     m_poemBank = new PoemBank(*m_storage);
