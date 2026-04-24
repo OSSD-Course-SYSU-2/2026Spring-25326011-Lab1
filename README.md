@@ -22,7 +22,9 @@ BTW：本项目提交至课程组的另一个目的是，以后上课运行本�
 ## 核心文件位置
 
 -运行程序：bin目录下guess_poetry_game.exe
+
 -诗词库：在bin/resources目录下的poems.json
+
 -题库：在bin/resources目录下的questions.json
 
 
